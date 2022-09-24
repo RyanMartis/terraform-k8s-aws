@@ -13,6 +13,9 @@ variable "vpc_name" {
 variable "vpc_cidr_block" {
   type = string
 }
+variable "vpc_all_cidr_block" {
+  type = string
+}
 variable "tag_name" {
   type = string
 }
@@ -22,6 +25,19 @@ variable "tag_environment" {
 variable "tag_terraform" {
   type = string
 }
-variable "private_subnet_cidr_block" {
+variable "public_subnet_cidr_block" {
   type = list
 }
+variable "sg_name" {
+  type = string
+}
+variable "ssh_port" {
+  type = string
+}
+variable "kube_port" {
+  type = string
+}
+variable "https_port" {
+  type = string
+}
+
