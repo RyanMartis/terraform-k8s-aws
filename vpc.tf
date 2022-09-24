@@ -18,6 +18,9 @@ module "vpc" {
 
   name = var.vpc_name
   cidr = var.vpc_cidr_block
+  
+  azs = var.aws_azs
+	private_subnets = var.private_subnet_cidr_block
 
   enable_dns_hostnames = true
   enable_dns_support = true
@@ -31,4 +34,8 @@ module "vpc" {
 
 output "vpc_id" {
 	value = module.vpc.vpc_id
+}
+
+output "subnet_id" {
+	value = module.vpc.private_subnets
 }

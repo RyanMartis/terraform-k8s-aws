@@ -4,6 +4,9 @@ variable "aws_profile_name" {
 variable "aws_region" {
   type = string
 }
+variable "aws_azs" {
+  type = list
+}
 variable "vpc_name" {
   type = string
 }
@@ -18,4 +21,7 @@ variable "tag_environment" {
 }
 variable "tag_terraform" {
   type = string
+}
+variable "private_subnet_cidr_block" {
+  type = list
 }
