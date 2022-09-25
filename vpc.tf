@@ -107,12 +107,12 @@ module "nlb" {
 }
 
 output "target_group_arns" {
-	value = module.nlb.target_group_arns
+  value = [ for tg in module.nlb.target_group_arns : tg ]
 }
 
 resource "aws_lb_target_group_attachment" "k8s-lb-attachment" {
-  count = 3
-  target_group_arn = module.nlb.target_group_arns
+  count = length(var.ip_list)
+  target_group_arn = module.nlb.target_group_arns[0]
   target_id        = "${element(var.ip_list, count.index)}"  #["10.0.1.10", "10.0.1.11", "10.0.1.12"]
 }
 
