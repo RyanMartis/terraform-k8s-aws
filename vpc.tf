@@ -81,3 +81,52 @@ module "sg" {
   }
 
 }
+
+module "nlb" {
+  source  = "terraform-aws-modules/alb/aws"
+  version = "~> 6.0"
+
+  name = var.nlb_name 
+
+  load_balancer_type = "network"
+
+  vpc_id  = module.vpc.vpc_id
+  subnets = module.vpc.public_subnets
+
+  target_groups = [
+    {
+      name_prefix      = var.nlb_target_group_name
+      backend_protocol = "TCP"
+      backend_port     = var.kube_port
+      target_type      = "ip"
+      targets = {
+
+      }
+    }
+  ]
+}
+
+output "target_group_arns" {
+	value = module.nlb.target_group_arns
+}
+
+resource "aws_lb_target_group_attachment" "k8s-lb-attachment" {
+  count = 3
+  target_group_arn = module.nlb.target_group_arns
+  target_id        = "${element(var.ip_list, count.index)}"  #["10.0.1.10", "10.0.1.11", "10.0.1.12"]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

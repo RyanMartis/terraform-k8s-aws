@@ -11,6 +11,9 @@ tag_terraform = "true"
 
 public_subnet_cidr_block = ["10.0.1.0/24"]
 sg_name = "kubernetes-the-hard-way"
+nlb_name = "kubernetes-the-hard-way-nlb"
+nlb_target_group_name = "k8s"
+ip_list = ["10.0.1.10", "10.0.1.11", "10.0.1.12"]
 
 ssh_port = 22
 kube_port = 6443
