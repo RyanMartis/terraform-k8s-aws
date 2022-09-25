@@ -99,15 +99,29 @@ module "nlb" {
       backend_protocol = "TCP"
       backend_port     = var.kube_port
       target_type      = "ip"
-      targets = {
-
-      }
+    }
+  ]
+  http_tcp_listeners = [
+    {
+      port = 443
+      protocol = "TCP"
+      action_type = "forward"
+      target_group_index = 0
+      #target_group_arn = module.nlb.target_group_arns[0]
     }
   ]
 }
 
 output "target_group_arns" {
   value = [ for tg in module.nlb.target_group_arns : tg ]
+}
+
+output "tcp_listener_arns" {
+  value = [ for listener in module.nlb.http_tcp_listener_arns : listener ]
+}
+
+output "load_balancer_dns_name" {
+  value = module.nlb.lb_dns_name
 }
 
 resource "aws_lb_target_group_attachment" "k8s-lb-attachment" {
