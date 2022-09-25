@@ -32,13 +32,13 @@ variable "sg_name" {
   type = string
 }
 variable "ssh_port" {
-  type = string
+  type = number
 }
 variable "kube_port" {
-  type = string
+  type = number
 }
 variable "https_port" {
-  type = string
+  type = number
 }
 variable "nlb_name" {
   type = string
@@ -49,5 +49,13 @@ variable "nlb_target_group_name" {
 variable "ip_list" {
   type = list
 }
-
+variable "ec2_control_node_count" {
+  type = number
+}
+variable "ec2_ami" {
+  type = string
+}
+variable "ec2_instance_type" {
+  type = string 
+}
 

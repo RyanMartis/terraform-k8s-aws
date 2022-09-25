@@ -14,6 +14,9 @@ sg_name = "kubernetes-the-hard-way"
 nlb_name = "kubernetes-the-hard-way-nlb"
 nlb_target_group_name = "k8s"
 ip_list = ["10.0.1.10", "10.0.1.11", "10.0.1.12"]
+ec2_control_node_count = 3
+ec2_ami = "ami-0149b2da6ceec4bb0"
+ec2_instance_type = "t3.micro"
 
 ssh_port = 22
 kube_port = 6443

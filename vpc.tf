@@ -107,7 +107,6 @@ module "nlb" {
       protocol = "TCP"
       action_type = "forward"
       target_group_index = 0
-      #target_group_arn = module.nlb.target_group_arns[0]
     }
   ]
 }
@@ -130,7 +129,16 @@ resource "aws_lb_target_group_attachment" "k8s-lb-attachment" {
   target_id        = "${element(var.ip_list, count.index)}"
 }
 
+module "ec2_instance" {
+  source = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 3.0"
 
+  count = var.ec2_control_node_count
+  name = "controller-${count.index}"
+
+  ami = var.ec2_ami
+  instance_type = var.ec2_instance_type
+}
 
 
 
