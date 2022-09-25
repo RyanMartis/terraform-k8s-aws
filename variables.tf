@@ -40,4 +40,14 @@ variable "kube_port" {
 variable "https_port" {
   type = string
 }
+variable "nlb_name" {
+  type = string
+}
+variable "nlb_target_group_name" {
+  type = string
+}
+variable "ip_list" {
+  type = list
+}
+
 
