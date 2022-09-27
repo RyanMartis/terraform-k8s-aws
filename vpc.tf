@@ -107,9 +107,14 @@ module "nlb" {
       protocol = "TCP"
       action_type = "forward"
       target_group_index = 0
-      #target_group_arn = module.nlb.target_group_arns[0]
     }
   ]
+
+  tags = {
+    Terraform = var.tag_terraform
+    Environment = var.tag_environment
+    Name = var.tag_name
+  }
 }
 
 output "target_group_arns" {
@@ -124,14 +129,74 @@ output "load_balancer_dns_name" {
   value = module.nlb.lb_dns_name
 }
 
+output "security_group_id" {
+  value = module.sg.security_group_id
+}
+
 resource "aws_lb_target_group_attachment" "k8s-lb-attachment" {
   count = length(var.ip_list)
   target_group_arn = module.nlb.target_group_arns[0]
   target_id        = "${element(var.ip_list, count.index)}"
 }
 
+module "key_pair" {
+  source = "terraform-aws-modules/key-pair/aws"
 
+  key_name   = var.key_pair_name
+  public_key = var.public_key
+}  
 
+module "ec2_instance_controller" {
+  source = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 3.0"
+
+  count = var.ec2_control_node_count
+  name = "controller-${count.index}"
+  key_name = var.key_pair_name
+
+  ami = var.ec2_ami
+  instance_type = var.ec2_instance_type
+  vpc_security_group_ids = [module.sg.security_group_id]
+  subnet_id = module.vpc.public_subnets[0]
+  ebs_block_device = [
+    {
+      device_name = var.ebs_device_name
+      volume_size = var.ebs_volume_size
+    }
+  ]
+  user_data = "name=controller-${count.index}"
+
+  tags = {
+    Terraform = var.tag_terraform
+    Environment = var.tag_environment
+  }
+  
+}
+
+module "ec2_instance_worker" {
+  source = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 3.0"
+
+  count = var.ec2_worker_node_count
+  name = "worker-${count.index}"
+  key_name = var.key_pair_name
+
+  ami = var.ec2_ami
+  instance_type = var.ec2_instance_type
+  vpc_security_group_ids = [module.sg.security_group_id]
+  subnet_id = module.vpc.public_subnets[0]
+  ebs_block_device = [
+    {
+      device_name = var.ebs_device_name
+      volume_size = var.ebs_volume_size
+    }
+  ]
+
+  tags = {
+    Terraform = var.tag_terraform
+    Environment = var.tag_environment
+  }
+}
 
 
 
