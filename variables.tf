@@ -52,10 +52,26 @@ variable "ip_list" {
 variable "ec2_control_node_count" {
   type = number
 }
+variable "ec2_worker_node_count" {
+  type = number
+}
 variable "ec2_ami" {
   type = string
 }
 variable "ec2_instance_type" {
   type = string 
 }
+variable "ebs_device_name" {
+  type = string 
+}
+variable "ebs_volume_size" {
+  type = string 
+}
+variable "key_pair_name" {
+  type = string 
+}
+variable "public_key" {
+  type = string 
+}
+
 
