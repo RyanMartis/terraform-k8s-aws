@@ -23,7 +23,7 @@ ebs_device_name = "/dev/sda1"
 ebs_volume_size = "50"
 
 key_pair_name = "kubernetes"
-public_key = ""
+public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC+0JaDtYh1QQdjS2USVKN9jJLFdiAE6pnoBKlrJFtk+W3oFLYfLPK08sSv7iqpGn0+VnspIgZ6LUOeNPukXRNMQ3a7VyHtPE8UHMlXsgdN3m6gDR5D5yXWLHpJI4ldasF7zqX3Ihjih86VPgN/go2B3ljVNrpilHqR+x44dv3/g203mdRn7ktg6rqrY4Uq/lvYN5NsntnL0I5sLN9mEpkYAhBbXVUFEo2V1VycbFYb4wXzESLz2plUCGbkehGjld7rW+3otef9taoYe5s19PZ2vZk1TileNnwhOGnDHKzY8I14KJBEr+o9BMgih8IQtou4KOWwDdfzMWFdU/Zl6X9G/cSpfb1IeL4JcFZHAZ+7FACngvfdIe0EUzEGkiMI/0JBop9tMe515LvJR7VumcrKru6kACpb7eUC8xeE3lZff5B6/RfuKgcNNzbm4KlK82tF75XewSa4DHjfa9g68TfikrNL0PYc5/8Agbbkp2pO2K/4FZxs7H20pIIo0wklxFk= ryanmartis@pop-os"
 
 
 ssh_port = 22
